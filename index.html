@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popeyes Now Hiring – Find a Location</title>
+<meta name="description" content="Find a Popeyes restaurant near you that's hiring and apply in minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#FFF8F1;color:#1C1410;font-family:'Figtree',system-ui,sans-serif;min-height:100vh}
+  a{color:#9A3412}a:hover{color:#7C2D12}
+  input:focus{outline:3px solid #FDBA74;outline-offset:1px}
+  button:focus-visible,a:focus-visible{outline:3px solid #FDBA74;outline-offset:2px}
+  .wrap{max-width:1120px;margin:0 auto;padding-left:24px;padding-right:24px}
+  .display{font-family:'Archivo',sans-serif}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  header{background:#1C1410;color:#FFF8F1}
+  header .wrap{padding-top:18px;padding-bottom:18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+  .brand{font-weight:800;font-size:18px;letter-spacing:.04em;text-transform:uppercase}
+  .brand span{color:#FDBA74}
+  .count{font-size:14px;color:#E7D8C9}
+
+  .hero{background:#C2410C;color:#fff}
+  .hero .wrap{padding-top:56px;padding-bottom:64px;display:flex;flex-direction:column;gap:20px}
+  .pill{display:inline-flex;align-self:flex-start;background:#1C1410;color:#FDBA74;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:999px}
+  .hero h1{margin:0;font-weight:900;font-size:clamp(2.5rem,7vw,4.5rem);line-height:.95;letter-spacing:-.02em;max-width:14ch}
+  .hero p{margin:0;font-size:19px;line-height:1.5;max-width:40rem;color:#FFF1E6}
+  form{display:flex;flex-wrap:wrap;gap:10px;max-width:44rem;margin-top:8px}
+  #loc{flex:1 1 260px;min-width:0;height:56px;padding:0 18px;font-size:17px;font-family:inherit;color:#1C1410;background:#fff;border:0;border-radius:12px}
+  .find{flex:0 0 auto;height:56px;padding:0 28px;font-weight:800;font-size:17px;letter-spacing:.02em;color:#fff;background:#1C1410;border:0;border-radius:12px;cursor:pointer}
+  #msg{margin:0;font-size:16px;font-weight:600;color:#fff;background:#9A3412;padding:10px 14px;border-radius:10px;align-self:flex-start}
+  #msg:empty{display:none}
+
+  main.wrap{padding-top:32px;padding-bottom:64px;display:flex;flex-direction:column;gap:24px}
+  .label{margin:0;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#6B5444}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{min-height:44px;padding:0 18px;font-family:inherit;font-size:15px;font-weight:600;color:#1C1410;background:#fff;border:2px solid #E3CDBA;border-radius:999px;cursor:pointer}
+  .chip[aria-pressed="true"]{font-weight:700;color:#fff;background:#1C1410;border-color:#1C1410}
+  .results-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;border-bottom:2px solid #1C1410;padding-bottom:12px}
+  .results-head h2{margin:0;font-weight:800;font-size:28px}
+  .results-head div{font-size:15px;color:#6B5444}
+  .empty{background:#fff;border:2px dashed #E3CDBA;border-radius:16px;padding:32px;text-align:center;font-size:17px;color:#6B5444}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:16px}
+
+  .card{background:#fff;border:1px solid #EAD9C8;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .card-id{display:flex;flex-direction:column;gap:4px;min-width:0}
+  .nearest{align-self:flex-start;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#C2410C;padding:4px 10px;border-radius:999px}
+  .card h3{margin:0;font-weight:800;font-size:22px}
+  .meta{font-size:13px;font-weight:600;color:#6B5444}
+  .dist{flex:0 0 auto;font-weight:800;font-size:20px;color:#9A3412;white-space:nowrap}
+  .addr{font-size:15px;line-height:1.4;color:#1C1410}
+  .roles-label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6B5444}
+  .roles{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+  .role{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;padding:6px 6px 6px 12px;background:#FFF4EA;border-radius:10px}
+  .role-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .role-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:700}
+  .age{font-size:12px;font-weight:800;color:#fff;background:#1C1410;padding:2px 8px;border-radius:999px}
+  .role-type{font-size:13px;color:#6B5444}
+  .apply{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;font-family:'Archivo',sans-serif;font-weight:800;font-size:15px;color:#fff;background:#C2410C;border:0;border-radius:8px;text-decoration:none;cursor:pointer}
+  .apply:hover{color:#fff;background:#9A3412}
+  .gate{display:flex;flex-direction:column;gap:12px;padding:16px;background:#1C1410;color:#FFF8F1;border-radius:12px}
+  .gate-q{font-weight:800;font-size:18px}
+  .gate-sub{font-size:15px;color:#E7D8C9}
+  .gate-btns{display:flex;flex-wrap:wrap;gap:8px}
+  .gate-yes{flex:1 1 120px;display:inline-flex;align-items:center;justify-content:center;min-height:44px;font-weight:800;font-size:15px;color:#1C1410;background:#FDBA74;border-radius:8px;text-decoration:none}
+  .gate-yes:hover{color:#1C1410}
+  .gate-no{flex:1 1 120px;min-height:44px;font-family:inherit;font-weight:700;font-size:15px;color:#FFF8F1;background:transparent;border:2px solid #6B5444;border-radius:8px;cursor:pointer}
+  .denied{display:flex;flex-direction:column;gap:10px;padding:16px;background:#FFF4EA;border:2px solid #C2410C;border-radius:12px}
+  .denied-q{font-weight:800;font-size:16px;color:#9A3412}
+  .denied-sub{font-size:15px;color:#1C1410}
+  .ok{align-self:flex-start;min-height:44px;padding:0 16px;font-family:inherit;font-weight:700;font-size:15px;color:#1C1410;background:#fff;border:2px solid #E3CDBA;border-radius:8px;cursor:pointer}
+  .card-foot{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+  .call{flex:1 1 120px;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;font-weight:700;font-size:15px;color:#1C1410;background:#fff;border:2px solid #E3CDBA;border-radius:10px;text-decoration:none}
+  .call:hover{color:#1C1410;border-color:#C2410C}
+  .more{align-self:center;min-height:48px;padding:0 28px;font-weight:800;font-size:16px;color:#1C1410;background:#fff;border:2px solid #1C1410;border-radius:999px;cursor:pointer}
+  .more[hidden]{display:none}
+
+  footer{background:#1C1410;color:#E7D8C9}
+  footer .wrap{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:14px}
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand display">Popeyes <span>Careers</span></div>
+      <div class="count">Hiring now across <span id="storeCount"></span> restaurants</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="pill">Now Hiring · All Shifts</div>
+      <h1 class="display">Find a Popeyes job near you.</h1>
+      <p>Enter your ZIP code, city, or county to see the closest restaurants and the roles they're hiring for right now.</p>
+      <form id="search">
+        <label for="loc" class="sr-only">ZIP code, city and state, or county</label>
+        <input id="loc" type="text" inputmode="search" autocomplete="postal-code" placeholder="e.g. 75023, Plano TX, or Tarrant County">
+        <button type="submit" class="find display">Find jobs</button>
+      </form>
+      <p id="msg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <div>
+      <h2 class="label display">Market</h2>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="results-head">
+      <h2 class="display" id="heading">All restaurants hiring</h2>
+      <div id="subheading"></div>
+    </div>
+    <div class="empty" id="empty" hidden>Openings for this market are coming soon. Check back shortly or choose another market.</div>
+    <div class="grid" id="grid"></div>
+    <button type="button" class="more display" id="more" data-act="more" hidden></button>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>Independently owned and operated Popeyes franchise restaurants. Equal opportunity employer.</div>
+      <div>Questions? Call any location listed above.</div>
+    </div>
+  </footer>
+
+<script>
+var GEO_URL = 'geo.json';
+var PAGE_SIZE = 9;
+
+// Markets
+var MARKETS = [
+  { id: 'dfw', name: 'Dallas–Fort Worth' },
+  { id: 'hou', name: 'Houston' },
+  { id: 'kc', name: 'Kansas City / Missouri' },
+  { id: 'bmt', name: 'Beaumont' }
+];
+
+// Open roles shown at every store unless a store lists its own "jobs".
+var DEFAULT_JOBS = [
+  { title: 'Team Member', type: 'Full & part-time' },
+  { title: 'Cook', type: 'Full & part-time', minAge: 18 },
+  { title: 'Shift Leader / Assistant Manager', type: 'Full-time' },
+  { title: 'General Manager', type: 'Full-time' }
+];
+
+// Microsoft Form "Popeyes – Job Application". Apply buttons pre-fill Store number and Position.
+var FORM_URL = 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=3--o6ajcn0ykoWuwjo9rtZPkHHNK06tEpz98Yy6k6fVUNURIQkJQNTZMU1pWWk1DU01IS1FSS1E3RC4u';
+var FORM_STORE_Q = 'r28872123a332452aa3b6ea6e54d0cb4d';
+var FORM_POSITION_Q = 'r56d8051a25e140539337a1ef1701e3ab';
+
+// [market, store #, street, city, state, zip, phone, email, lat, lng, jobs?, applyUrl?]
+var STORES = [
+  ['dfw','13806','3945 W Spring Creek Pkwy','Plano','TX','75023','214-429-3339','popeyes13806@gmail.com',33.055,-96.737],
+  ['dfw','13889','3635 W Northwest Hwy','Dallas','TX','75220','469-577-1175','popeyes13889@gmail.com',32.868,-96.862],
+  ['dfw','13904','1010 W Airport Fwy','Euless','TX','76039','817-857-2920','popeyes13904@gmail.com',32.858,-97.083],
+  ['dfw','14085','1529 W Hebron Pkwy','Carrollton','TX','75010','469-896-0020','popeyes14085@gmail.com',33.030,-96.878],
+  ['dfw','13902','2421 Heritage Trace Pkwy','Fort Worth','TX','76177','817-989-2346','popeyes13902@gmail.com',32.945,-97.312],
+  ['dfw','14017','1900 E State Hwy 356','Irving','TX','75060','469-957-0341','popeyes14017@gmail.com',32.802,-96.960],
+  ['dfw','14198','600 S Saginaw Blvd','Saginaw','TX','76179','817-989-2566','popeyes14198@gmail.com',32.907,-97.426],
+  ['dfw','14018','6611 W Eldorado Pkwy','McKinney','TX','75070','469-625-0077','popeyes14018@gmail.com',33.198,-96.615],
+  ['dfw','14192','815 S Central Expy','Anna','TX','75409','469-840-9981','popeyes14192@gmail.com',33.345,-96.564],
+  ['dfw','14178','5420 FM 423','Frisco','TX','75036','945-260-0592','popeyes14178@gmail.com',33.150,-96.824],
+  ['dfw','14197','1445 E Belt Line Rd','Richardson','TX','75081','682-282-6766','popeyes14197@gmail.com',32.946,-96.706],
+  ['dfw','14193','2340 S Cooper St','Arlington','TX','76015','682-251-0464','popeyes14193@gmail.com',32.693,-97.135],
+  ['dfw','14380','201 Shannon Rd E','Sulphur Springs','TX','75482','276-268-3182','popeyes14380@gmail.com',33.135,-95.592],
+  ['dfw','14390','5330 Kennedale Sublett Rd','Kennedale','TX','76060','945-215-9813','popeyes14390@gmail.com',32.643,-97.214],
+  ['dfw','14955','8305 N Belt Line Rd','Irving','TX','75063','469-845-9932','popeyes14955@gmail.com',32.925,-96.960],
+  ['dfw','14708','2501 E Hubbard St','Mineral Wells','TX','76067','940-274-6347','popeyes14708@gmail.com',32.809,-98.113],
+  ['dfw','15135','2015 E Belt Line Rd','Carrollton','TX','75006','469-491-4016','popeyes15135@gmail.com',32.966,-96.883],
+  ['dfw','15436','600 W California St','Gainesville','TX','76240','940-275-0180','popeyes15436@gmail.com',33.655,-97.158],
+  ['dfw','14191','1261 Justin Rd','Lewisville','TX','75077','214-513-3149','popeyes14191@gmail.com',33.078,-97.070],
+  ['dfw','15446','6520 E Northwest Hwy','Dallas','TX','75231','214-838-7208','popeyes15446@gmail.com',32.876,-96.750],
+  ['dfw','14909','1600 E Spring Creek Pkwy','Plano','TX','75074','214-919-5096','popeyes14909@gmail.com',33.028,-96.678],
+  ['dfw','15050','430 N State Hwy 121','Coppell','TX','75019','214-513-3241','popeyes15050@gmail.com',32.967,-96.981],
+  ['dfw','14196','5300 Rufe Snow Dr','North Richland Hills','TX','76180','682-257-1015','popeyes14196@gmail.com',32.840,-97.225],
+  ['dfw','15447','1604 W University Dr','Denton','TX','76201','940-239-8342','popeyes15447@csmgroup.org',33.229,-97.131],
+  ['dfw','15651','840 N FM 548','Forney','TX','75126','469-864-8163','popeyes15651@csmgroup.org',32.749,-96.460],
+  ['dfw','16031','3232 E Hebron Pkwy','Carrollton','TX','75007','469-568-9300','popeyes16031@csmgroup.org',33.003,-96.882],
+  ['dfw','15573','1050 N Beach St','Fort Worth','TX','76111','682-250-0165','popeyes15573@csmgroup.org',32.782,-97.300],
+  ['hou','3282','12550 Bellaire Blvd','Houston','TX','77072','281-568-3613/281-965-7852','popeyes003282@gmail.com',29.699,-95.586],
+  ['hou','10738','10112 Bissonnet St','Houston','TX','77036','713-771-3243','popeyes10738@gmail.com',29.698,-95.540],
+  ['hou','10571','9508 Beechnut St','Houston','TX','77036','713-995-9990','popeyes010571@gmail.com',29.698,-95.540],
+  ['hou','4553','6890 Harrisburg Blvd','Houston','TX','77011','832-409-6993','popeyes04553@gmail.com',29.742,-95.307],
+  ['hou','3178','11820 Jones Rd','Houston','TX','77070','346-237-9858','popeyes3178@gmail.com',29.978,-95.580],
+  ['hou','7112','15107 FM 529','Houston','TX','77095','281-550-0860','popeyes7112@gmail.com',29.894,-95.648],
+  ['hou','10359','17318 Spring Cypress Rd','Cypress','TX','77429','281-758-1497','popeyes10359@gmail.com',29.977,-95.636],
+  ['hou','10379','7120 N Fry Rd','Cypress','TX','77433','832-593-0302','popeyes10379@gmail.com',29.884,-95.703],
+  ['hou','3802','2032 11th St','Huntsville','TX','77340','936-295-2173','popeyes03802@csmgroup.org',30.645,-95.580],
+  ['hou','11419','9120 Barker Cypress Rd','Cypress','TX','77433','281-861-8711','popeyes11419@gmail.com',29.884,-95.703],
+  ['hou','3728','4850 Highway 6 S','Missouri City','TX','77459','281-499-0101','popeyes3728@gmail.com',29.570,-95.542],
+  ['hou','11686','8120 N Sam Houston Pkwy','Houston','TX','77064','832-688-8666','popeyes11686@gmail.com',29.919,-95.557],
+  ['hou','11554','11318 Westheimer Rd','Houston','TX','77077','281-741-5106/832-951-0247','popeyes11554@gmail.com',29.748,-95.603],
+  ['hou','11940','14417 Westheimer Rd','Houston','TX','77077','281-617-7520','popeyes11940@gmail.com',29.748,-95.603],
+  ['hou','4224','8702 N Navarro St','Victoria','TX','77904','361-578-6938','popeyes4224@gmail.com',28.867,-96.999],
+  ['hou','11705','2912 Houston Hwy','Victoria','TX','77901','361-894-7940','popeyes11705@gmail.com',28.809,-96.999],
+  ['hou','12483','8935 Highway 6 N','Houston','TX','77095','832-427-6067','popeyes12483@gmail.com',29.894,-95.648],
+  ['hou','12607','20022 FM 2920','Hockley','TX','77447','346-236-6879','popeyes12607@gmail.com',30.073,-95.810],
+  ['hou','12481','21817 Clay Rd','Katy','TX','77449','281-676-4002','popeyes12481@gmail.com',29.832,-95.736],
+  ['hou','13176','6322 FM 1463','Katy','TX','77494','713-799-3322','popeyes13176@gmail.com',29.740,-95.830],
+  ['hou','1507','905-1/2 W Davis St','Conroe','TX','77301','936-539-2188','popeyesconroe@gmail.com',30.312,-95.453],
+  ['hou','4799','1000 FM 1097','Willis','TX','77318','936-856-0081','popeyes4799@gmail.com',30.442,-95.539],
+  ['hou','5701','14631 Highway 105 W','Montgomery','TX','77356','936-588-2227','popeyes5701@gmail.com',30.441,-95.710],
+  ['hou','5803','16826 I-45 S','The Woodlands','TX','77380','936-273-2235','popeyes5803woodlands@gmail.com',30.144,-95.470],
+  ['hou','7058','20035 I-45 N','Spring','TX','77378','281-288-5060','popeyes7058@gmail.com',30.444,-95.451],
+  ['hou','7257','22534 Tomball Pkwy','Houston','TX','77070','281-251-2658','popeyes7257@gmail.com',29.978,-95.580],
+  ['hou','7455','710 Highway 59 S Frontage Rd','Cleveland','TX','77327','281-593-1231','popeyes7455@gmail.com',30.330,-95.020],
+  ['hou','8684','4510 Panther Creek Pine','The Woodlands','TX','77381','281-298-7400','popeyes8684@gmail.com',30.172,-95.499],
+  ['hou','10601','2940 I-45 N','Conroe','TX','77303','939-756-2320','10601popeyes@gmail.com',30.381,-95.375],
+  ['hou','11105','202 Airtex Dr','Houston','TX','77090','281-248-4077','popeyesairtex@gmail.com',30.017,-95.447],
+  ['hou','11475','3136 FM 1960','Houston','TX','77068','281-583-1331','popeyes11475@gmail.com',30.007,-95.490],
+  ['hou','11566','25764 Loop 494','Porter','TX','77365','281-577-8150','popeyes11566@gmail.com',30.124,-95.269],
+  ['hou','11703','8415 FM 1960 Bypass Rd W','Humble','TX','77338','281-883-4421','popeyes11703@gmail.com',30.004,-95.282],
+  ['hou','11864','6070 FM 2920','Spring','TX','77379','281-251-5841','popeyes11864@gmail.com',30.038,-95.533],
+  ['hou','12210','5615 FM 1488','Magnolia','TX','77354','832-521-5516','popeyes12210@gmail.com',30.233,-95.550],
+  ['hou','12314','3157 Riley Fuzzel Rd','Spring','TX','77386','281-288-0934','popeyes12314@gmail.com',30.129,-95.424],
+  ['hou','12640','22113 Walton Ave','New Caney','TX','77357','832-793-5005','popeyes12640@gmail.com',30.158,-95.198],
+  ['hou','12638','10601 N Grand Pkwy','Spring','TX','77379','281-826-3373','popeyes12638@gmail.com',30.038,-95.533],
+  ['hou','13326','2020 S Mason Rd','Katy','TX','77450','281-665-7598','popeyes13326@gmail.com',29.745,-95.733],
+  ['hou','13276','12703 Bammel N Houston Rd','Houston','TX','77066','281-397-1188','popeyes13276@gmail.com',29.961,-95.495],
+  ['hou','13478','6245 Barker Cypress Rd','Houston','TX','77084','832-906-6372','popeyes13478@gmail.com',29.844,-95.662],
+  ['hou','13366','1001 FM 1960 Rd W','Houston','TX','77090','832-666-7591','popeyes13366@gmail.com',30.017,-95.447],
+  ['hou','13560','7105 FM 1960 Rd W','Houston','TX','77069','832-286-1227','popeyes13560@gmail.com',29.986,-95.521],
+  ['hou','3439','8002 Highway 6 S','Houston','TX','77083','281-530-9401','popeyes3439@gmail.com',29.695,-95.651],
+  ['hou','13586','1959 Spring Stuebner Rd','Spring','TX','77388','346-351-2825','popeyes13586@gmail.com',30.050,-95.469],
+  ['hou','13652','32310 State Highway 249','Pinehurst','TX','77362','281-789-7225','popeyes13652@gmail.com',30.158,-95.681],
+  ['hou','13790','12850 Telge Rd','Cypress','TX','77429','346-646-0044','popeyes13790@gmail.com',29.977,-95.636],
+  ['hou','13918','10770 Harwin Dr','Houston','TX','77072','346-646-0176','popeyes13918@gmail.com',29.699,-95.586],
+  ['hou','13796','13445 Northwest Fwy','Houston','TX','77040','346-406-1301','popeyes13796@gmail.com',29.874,-95.528],
+  ['hou','13920','24354 Kuykendahl Rd','Tomball','TX','77375','346-645-1075','popeyes13920@gmail.com',30.074,-95.620],
+  ['hou','14249','6925 Grand Mission Blvd','Richmond','TX','77407','346-476-1792','popeyes14249@gmail.com',29.663,-95.727],
+  ['hou','13901','324 S Loop 336 W','Conroe','TX','77304','936-444-4755','popeyes13901@gmail.com',30.322,-95.528],
+  ['hou','14572','2210 State Highway 71, Suite C','Columbus','TX','78934','979-484-7390','popeyes14572@gmail.com',29.703,-96.553],
+  ['hou','14393','20232 Eva St','Montgomery','TX','77356','346-636-2062','popeyes14393@gmail.com',30.441,-95.710],
+  ['hou','14961','800 US Hwy 90','Dayton','TX','77535','936-504-3561','popeyes14961@gmail.com',30.010,-94.879],
+  ['hou','15296','19619 Tomball Pkwy','Houston','TX','77070','346-200-8468','popeyes15296@gmail.com',29.978,-95.580],
+  ['hou','15189','2005 TX-36','Sealy','TX','77474','979-231-0443','popeyes15189@gmail.com',29.783,-96.159],
+  ['hou','15444','25027 I-45 N','Spring','TX','77380','281-297-8098','popeyes15444@gmail.com',30.144,-95.470],
+  ['hou','15652','14493 US Hwy 59','Splendora','TX','77372','346-301-0077','popeyes15652@gmail.com',30.233,-95.199],
+  ['hou','15659','22111 FM 2920','Hockley','TX','77447','936-261-6951','popeyes15659@csmgroup.org',30.073,-95.810],
+  ['hou','15555','29811 Jordan Crossing Blvd','Brookshire','TX','77423','346-636-0311','popeyes15555@csmgroup.org',29.807,-95.975],
+  ['hou','2202','4946 Hwy 6 N','Houston','TX','77084','281-859-1100','Popeyes2202@gmail.com',29.844,-95.662],
+  ['hou','1488','8331 Broadway Blvd','Houston','TX','77061','713-649-5333','pop.broadway1488@gmail.com',29.665,-95.279],
+  ['hou','5863','18550 Northwest Fwy','Houston','TX','77065','281-807-6969','pop.nwfwy5863@gmail.com',29.932,-95.611],
+  ['hou','3580','5721 Bellaire Blvd','Houston','TX','77081','713-666-4422','pop.bellaire3580@gmail.com',29.712,-95.484],
+  ['hou','3256','2904 61st St','Galveston','TX','77551','409-740-4335','pop.galveston3256@gmail.com',29.277,-94.830],
+  ['hou','4159','1509 Fairmont Pkwy','La Porte','TX','77571','281-470-6970','pop.fairmont4159@gmail.com',29.688,-95.051],
+  ['hou','4774','22101 Katy Fwy','Katy','TX','77450','281-693-0900','pop.katy4774@gmail.com',29.745,-95.733],
+  ['hou','11499','1420 Barker Cypress Rd','Houston','TX','77084','832-321-5514','pop.barker11499@gmail.com',29.844,-95.662],
+  ['hou','7147','14266 Gulf Fwy','Houston','TX','77034','205-383-4126','pop.gulf7147@gmail.com',29.636,-95.222],
+  ['hou','10539','20040 Morton Rd','Katy','TX','77449','281-492-2694','pop.morton10539@gmail.com',29.832,-95.736],
+  ['hou','11169','5745 W Grand Pkwy S','Richmond','TX','77407','281-344-0474','pop.grand11169@gmail.com',29.663,-95.727],
+  ['hou','13084','2404 Greenhouse Rd','Houston','TX','77084','281-206-7262','pop.greenhouse13084@gmail.com',29.844,-95.662],
+  ['kc','2691','6060 NE Antioch Rd','Gladstone','MO','64119','816-454-7979','popeyes2691@gmail.com',39.213,-94.517],
+  ['kc','2721','6821 Johnson Dr','Mission','KS','66202','913-262-1661','popeyes2721@gmail.com',39.028,-94.656],
+  ['kc','2843','3102 Prospect Ave','Kansas City','MO','64128','816-921-3035','popeyes2843@gmail.com',39.066,-94.539],
+  ['kc','3114','6330 Troost Ave','Kansas City','MO','64131','816-444-0223','popeyes3114@gmail.com',38.971,-94.577],
+  ['kc','3628','10125 State Line Rd','Kansas City','MO','64114','816-942-5757','popeyes3628@gmail.com',38.962,-94.596],
+  ['kc','4821','13049 US-71 Frontage Rd','Grandview','MO','64030','816-710-0707','popeyes4821@gmail.com',38.882,-94.520],
+  ['kc','8562','7601 Raytown Rd','Raytown','MO','64138','816-356-1990','popeyes8562@gmail.com',38.953,-94.471],
+  ['kc','10328','19510 US Hwy 40','Independence','MO','64055','816-795-1510','popeyes10328@gmail.com',39.054,-94.404],
+  ['kc','10577','329 N Main St','Lansing','KS','66043','913-351-3333','popeyes10577@gmail.com',39.250,-94.899],
+  ['kc','12179','2560 Iowa St','Lawrence','KS','66046','785-330-9797','popeyes012179@gmail.com',38.937,-95.242],
+  ['kc','12358','6901 NW 83rd Terrace','Kansas City','MO','64152','816-701-9050','popeyes12358@gmail.com',39.218,-94.724],
+  ['kc','12359','727 NW 7 Highway','Blue Springs','MO','64014','816-295-7273','popeyes12359@gmail.com',39.015,-94.260],
+  ['kc','12360','13546 S Blackbob Rd','Olathe','KS','66062','913-829-1115','popeyes12360@gmail.com',38.873,-94.775],
+  ['kc','12128','111 Business Loop 70 E','Columbia','MO','65203','573-256-0270','popeyes012128@gmail.com',38.935,-92.364],
+  ['kc','12778','3700 Hyde Park Ave','Columbia','MO','65201','573-214-9202','popeyes012778@gmail.com',38.938,-92.305],
+  ['kc','12606','2102 Missouri Blvd','Jefferson City','MO','65109','573-635-9321','popeyes12606@gmail.com',38.577,-92.244],
+  ['kc','12234','2905 SW Topeka Blvd','Topeka','KS','66611','785-246-6802','popeyes012234@gmail.com',39.014,-95.698],
+  ['kc','12235','1115 Bluemont Ave','Manhattan','KS','66502','785-320-5030','popeyes012235@gmail.com',39.194,-96.586],
+  ['kc','14089','510 E North Ave','Belton','MO','64012','816-281-3044','popeyes14089@gmail.com',38.816,-94.533],
+  ['kc','13919','9460 Quivira Rd','Lenexa','KS','66215','913-428-0191','popeyes13919@gmail.com',38.954,-94.734],
+  ['kc','14313','6235 Nieman Rd','Shawnee','KS','66203','913-717-9215','popeyes14313@gmail.com',39.042,-94.720],
+  ['kc','14959','7724 W 151st St','Overland Park','KS','66223','913-608-8863','popeyes14959@gmail.com',38.862,-94.661],
+  ['kc','14627','15902 E US-24 Hwy','Independence','MO','64056','816-762-7190','popeyes14627@gmail.com',39.118,-94.360],
+  ['kc','15427','10930 Parallel Pkwy','Kansas City','KS','66109','913-800-2169','popeyes15427@gmail.com',39.143,-94.786],
+  ['kc','15631','440 NW Chipman Rd','Lee’s Summit','MO','64063','816-282-2528','popeyes15631@gmail.com',38.912,-94.352],
+  ['kc','15629','10313 Metcalf Ave','Overland Park','KS','66212','913-730-2714','popeyes15629@gmail.com',38.957,-94.683],
+  ['bmt','13951','2621 US-69 Access Rd','Nederland','TX','77627','409-237-0752','popeyes13951@csmgroup.org',29.972,-94.001],
+  ['bmt','13950','300 Ferry Dr','Bridge City','TX','77611','409-247-5407','popeyes13950@csmgroup.org',30.019,-93.833],
+  ['bmt','13514','108 S LHS Dr','Lumberton','TX','77657','936-274-3998','popeyes13514@csmgroup.org',30.282,-94.219],
+  ['bmt','13730','510 Interstate 10','Beaumont','TX','77702','409-247-5640','popeyes13730@csmgroup.org',30.087,-94.125],
+  ['bmt','10831','6432 Phelan Blvd','Beaumont','TX','77706','409-242-9710','popeyes4763@csmgroup.org',30.095,-94.165]
+];
+
+var STATE_NAMES = { texas: 'TX', oklahoma: 'OK', louisiana: 'LA', arkansas: 'AR', 'new mexico': 'NM', missouri: 'MO', kansas: 'KS' };
+
+function milesBetween(a, b, c, d) {
+  var R = 3958.8, toR = Math.PI / 180;
+  var dLat = (c - a) * toR, dLng = (d - b) * toR;
+  var h = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a * toR) * Math.cos(c * toR) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+function buildIndex(d) {
+  var cities = {}, counties = {};
+  function add(map, key, la, lo) {
+    var e = map[key] || (map[key] = { la: 0, lo: 0, n: 0 });
+    e.la += la; e.lo += lo; e.n += 1;
+  }
+  Object.keys(d.z).forEach(function (zip) {
+    var r = d.z[zip];
+    var c = d.c[r[2]].split('|'), k = d.k[r[3]].split('|');
+    var cn = c[0].toLowerCase().replace(/['’.]/g, ''), kn = k[0].toLowerCase().replace(/['’.]/g, ''), st = c[1].toLowerCase();
+    add(cities, cn + '|' + st, r[0], r[1]);
+    add(cities, cn + '|', r[0], r[1]);
+    add(counties, kn + '|' + st, r[0], r[1]);
+    add(counties, kn + '|', r[0], r[1]);
+  });
+  return { z: d.z, c: d.c, cities: cities, counties: counties };
+}
+
+var state = { query: '', market: 'all', origin: null, msg: '', limit: 0, gate: null };
+var geo = null, pending = false;
+
+function $(id) { return document.getElementById(id); }
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+function setState(patch) { for (var k in patch) state[k] = patch[k]; render(); }
+
+var marketName = {};
+MARKETS.forEach(function (m) { marketName[m.id] = m.name; });
+
+function applyHref(r, title) {
+  if (r[11]) return r[11];
+  return FORM_URL + '&' + FORM_STORE_Q + '=' + encodeURIComponent(r[1]) + '&' + FORM_POSITION_Q + '=' + encodeURIComponent('"' + title + '"');
+}
+
+function runSearch(raw) {
+  var q = (raw || '').trim();
+  if (!q) { setState({ origin: null, msg: '', limit: 0 }); return; }
+  if (!geo) { pending = true; setState({ msg: 'Loading locations…' }); return; }
+  var g = geo, hit = null, label = '';
+  var zm = q.match(/\b(\d{5})\b/);
+  if (zm) {
+    var r = g.z[zm[1]];
+    if (r) { hit = { la: r[0], lo: r[1] }; var cc = g.c[r[2]].split('|'); label = zm[1] + ' (' + cc[0] + ', ' + cc[1] + ')'; }
+  } else {
+    var s = q.toLowerCase().replace(/['’.]/g, '').replace(/\s+/g, ' ').trim();
+    var st = '';
+    Object.keys(STATE_NAMES).forEach(function (n) {
+      var re = new RegExp('[ ,]+' + n + '$');
+      if (re.test(s)) { st = STATE_NAMES[n].toLowerCase(); s = s.replace(re, ''); }
+    });
+    var sm = s.match(/^(.*?)[ ,]+([a-z]{2})$/);
+    if (!st && sm && ['tx', 'ok', 'la', 'ar', 'nm', 'mo', 'ks'].indexOf(sm[2]) >= 0) { st = sm[2]; s = sm[1]; }
+    s = s.replace(/,/g, '').trim();
+    var isCounty = /\b(county|parish|co)$/.test(s);
+    var name = s.replace(/\s*\b(county|parish|co)$/, '').trim();
+    var key = name + '|' + st;
+    var e = null;
+    if (!isCounty) { e = g.cities[key]; if (e) label = q; }
+    if (!e) { e = g.counties[key]; if (e) label = q; }
+    if (e) hit = { la: e.la / e.n, lo: e.lo / e.n };
+  }
+  if (!hit) {
+    setState({ origin: null, msg: 'We couldn’t find “' + q + '”. Try a 5-digit ZIP code or a city like “Plano, TX”.', limit: 0 });
+    return;
+  }
+  setState({ origin: { la: hit.la, lo: hit.lo, label: label }, msg: '', limit: 0 });
+}
+
+var PHONE_ICON = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>';
+
+function cardHtml(r, dist, isNearest) {
+  var gate = state.gate && state.gate.store === r[1] ? state.gate : null;
+  var phone = r[6].split('/')[0];
+  var jobs = (r[10] || DEFAULT_JOBS).map(function (j) {
+    var gated = !!j.minAge;
+    var btn = gated
+      ? '<button type="button" class="apply" data-act="ask" data-store="' + esc(r[1]) + '" data-job="' + esc(j.title) + '">Apply</button>'
+      : '<a class="apply" href="' + esc(applyHref(r, j.title)) + '" target="_blank" rel="noopener">Apply</a>';
+    return '<li class="role"><div class="role-info"><div class="role-title"><span>' + esc(j.title) + '</span>' +
+      (gated ? '<span class="age">18+</span>' : '') + '</div><span class="role-type">' + esc(j.type) + '</span></div>' + btn + '</li>';
+  }).join('');
+  var gateHtml = '';
+  if (gate && gate.step === 'ask') {
+    gateHtml = '<div class="gate" role="dialog" aria-label="Age requirement">' +
+      '<div class="gate-q display">' + esc(gate.job) + ' applicants must be 18 or older.</div>' +
+      '<div class="gate-sub">Are you 18 years of age or older?</div>' +
+      '<div class="gate-btns"><a class="gate-yes" href="' + esc(applyHref(r, gate.job)) + '" target="_blank" rel="noopener" data-act="gate-done">Yes, I\'m 18+</a>' +
+      '<button type="button" class="gate-no" data-act="gate-no">No, I\'m under 18</button></div></div>';
+  } else if (gate && gate.step === 'no') {
+    gateHtml = '<div class="denied" role="status">' +
+      '<div class="denied-q">Sorry, you must be 18 or older to apply for ' + esc(gate.job) + '.</div>' +
+      '<div class="denied-sub">You can still apply for a Team Member position at this restaurant.</div>' +
+      '<button type="button" class="ok" data-act="gate-close">OK</button></div>';
+  }
+  var mapHref = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Popeyes ' + r[2] + ' ' + r[3] + ' ' + r[4] + ' ' + r[5]);
+  var distText = dist === null ? '' : (dist < 10 ? dist.toFixed(1) : Math.round(dist)) + ' mi';
+  return '<article class="card">' +
+    '<div class="card-top"><div class="card-id">' +
+      (isNearest ? '<div class="nearest">Closest to you</div>' : '') +
+      '<h3 class="display">' + esc(r[3]) + '</h3>' +
+      '<div class="meta">Restaurant #' + esc(r[1]) + ' · ' + esc(marketName[r[0]] || '') + '</div></div>' +
+      (dist !== null ? '<div class="dist display">' + esc(distText) + '</div>' : '') +
+    '</div>' +
+    '<a class="addr" href="' + esc(mapHref) + '" target="_blank" rel="noopener">' + esc(r[2]) + '<br>' + esc(r[3] + ', ' + r[4] + ' ' + r[5]) + '</a>' +
+    '<div><div class="roles-label">Open roles · tap to apply</div><ul class="roles">' + jobs + '</ul></div>' +
+    gateHtml +
+    '<div class="card-foot"><a class="call" href="tel:+1' + phone.replace(/\D/g, '') + '">' + PHONE_ICON + esc(phone) + '</a></div>' +
+  '</article>';
+}
+
+function render() {
+  var st = state;
+  var list = STORES.filter(function (r) { return st.market === 'all' || r[0] === st.market; }).map(function (r) {
+    return { r: r, d: st.origin ? milesBetween(st.origin.la, st.origin.lo, r[8], r[9]) : null };
+  });
+  if (st.origin) list.sort(function (a, b) { return a.d - b.d; });
+  else list.sort(function (a, b) { return a.r[3].localeCompare(b.r[3]) || a.r[1].localeCompare(b.r[1]); });
+
+  var limit = st.limit || PAGE_SIZE;
+  var shown = list.slice(0, limit);
+
+  var counts = { all: STORES.length };
+  STORES.forEach(function (r) { counts[r[0]] = (counts[r[0]] || 0) + 1; });
+  $('chips').innerHTML = [{ id: 'all', name: 'All markets' }].concat(MARKETS).map(function (m) {
+    var n = counts[m.id] || 0;
+    var label = m.name + (m.id === 'all' || n ? ' (' + n + ')' : ' · coming soon');
+    return '<button type="button" class="chip" data-act="market" data-id="' + esc(m.id) + '" aria-pressed="' + (st.market === m.id) + '">' + esc(label) + '</button>';
+  }).join('');
+
+  var mName = st.market === 'all' ? 'all markets' : marketName[st.market];
+  $('msg').textContent = st.msg;
+  $('heading').textContent = st.origin ? 'Closest to ' + st.origin.label : 'All restaurants hiring';
+  $('subheading').textContent = list.length + ' location' + (list.length === 1 ? '' : 's') + ' in ' + mName;
+  $('empty').hidden = list.length !== 0;
+  $('grid').innerHTML = shown.map(function (x, i) { return cardHtml(x.r, x.d, !!st.origin && i === 0); }).join('');
+  var more = $('more');
+  more.hidden = !(list.length > shown.length);
+  more.textContent = 'Show all ' + list.length + ' locations';
+}
+
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-act]');
+  if (!el) return;
+  var act = el.getAttribute('data-act');
+  if (act === 'market') setState({ market: el.getAttribute('data-id'), limit: 0 });
+  else if (act === 'more') setState({ limit: 999 });
+  else if (act === 'ask') setState({ gate: { store: el.getAttribute('data-store'), job: el.getAttribute('data-job'), step: 'ask' } });
+  else if (act === 'gate-no') setState({ gate: { store: state.gate.store, job: state.gate.job, step: 'no' } });
+  else if (act === 'gate-close') setState({ gate: null });
+  else if (act === 'gate-done') setTimeout(function () { setState({ gate: null }); }, 0);
+});
+
+$('search').addEventListener('submit', function (e) {
+  e.preventDefault();
+  state.query = $('loc').value;
+  runSearch(state.query);
+});
+
+$('storeCount').textContent = STORES.length;
+render();
+
+fetch(GEO_URL).then(function (r) { return r.json(); }).then(function (d) {
+  geo = buildIndex(d);
+  if (pending) { pending = false; runSearch(state.query); }
+}).catch(function () {
+  setState({ msg: 'Location search is unavailable right now. Browse all restaurants below.' });
+});
+</script>
+</body>
+</html>
