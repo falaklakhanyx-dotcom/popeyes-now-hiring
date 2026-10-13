@@ -2,6 +2,8 @@
 
 Hiring portal for CSM's Popeyes restaurants. Applicants scan the QR flyer, enter a ZIP code, city, or county (or tap **Use my location**), and see the nearest restaurants. Each Apply button asks English or Español, then opens the job application pre-filled with the store number and position.
 
+The whole page also has an **English | Español** switch at the top. Phones set to Spanish open in Spanish automatically, and a link ending in `?lang=es` always opens in Spanish (handy for a Spanish flyer). In Spanish, Apply goes straight to the Spanish form.
+
 **Live site:** https://falaklakhanyx-dotcom.github.io/popeyes-now-hiring/
 **Printable flyer:** https://falaklakhanyx-dotcom.github.io/popeyes-now-hiring/flyer.html
 
