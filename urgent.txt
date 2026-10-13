@@ -1,0 +1,13 @@
+# URGENTLY HIRING
+# Stores listed here get an "Urgently hiring" badge on the portal and show first when browsing.
+#
+# Put one store number per line.
+# To also tag specific jobs as "Needed now", add a colon and the job names, separated by commas:
+#   Team Member, Cook, Shift Leader, General Manager
+#
+# Examples (these lines start with # so they're ignored):
+#   13806
+#   3282: Cook, Team Member
+#
+# Remove a store's line when it's fully staffed. Changes show on the site within a few minutes.
+
